@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Expensek.Models.Transaction>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Transactions</h1>
+
+<p>
+    <a asp-action="Create">Create new transaction by clicking here.</a>
+</p>
+
+<div class="row">
+    <div class="col-md-12">
+        <ejs-grid id="transactions" dataSource="@Model" gridLines="None" allowSorting="true" allowPaging="true">
+            <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
+            <e-grid-columns>
+                <e-grid-column headerText="Category" field="CategoryTitleWithIcon"></e-grid-column>
+                <e-grid-column headerText="Date" field="Date" width="110px" type="Date" format="MMM-dd-yy"
+                               textAlign="Left"></e-grid-column>
+                <e-grid-column headerText="Amount" field="FormattedAmount" width="110px" textAlign="Left">
+                </e-grid-column>
+                <e-grid-column headerText="Actions" template="#actionColumnTemplate"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+</div>
+
+<script id="actionColumnTemplate" type="text/x-template">
+    <div class="d-flex flex-row justify-content-start">
+        <a class="btn btn-sm" href="/Transaction/Edit/${TransactionId}">
+            <span class="e-icons e-edit text-primary no-a-decoration"></span>
+        </a>
+        <form action="/Transaction/Delete/${TransactionId}">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-sm btn-link no-a-decoration"
+            onclick="return confirm(&quot;Are you sure to delete this transaction?&quot;)">
+                <span class="e-icons e-delete text-danger"></span>
+            </button>
+        </form>
+    </div>
+</script>

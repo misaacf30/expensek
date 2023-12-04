@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Expensek.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Categories</h1>
+
+<p>
+    <a asp-action="Create">Create new category by clicking here.</a>
+</p>
+
+<div class="row">
+    <div class="col-md-12">
+        <ejs-grid id="categories" dataSource="@Model" gridLines="None" allowSorting="true" allowPaging="true">
+            <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
+            <e-grid-columns>
+                <e-grid-column headerText="Title" field="TitleWithIcon"></e-grid-column>
+                <e-grid-column headerText="Type" template="#typeColumnTemplate" field="Type"></e-grid-column>
+                <e-grid-column headerText="Actions" template="#actionColumnTemplate"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+</div>
+
+
+<script id="typeColumnTemplate" type="text/x-template">
+    ${if(Type=="Income")}
+        <span class="text-success fs-6">Income +$</span>
+    ${else}
+        <span class="text-danger fs-6">Expense -$</span>
+    ${/if}
+</script>
+
+<script id="actionColumnTemplate" type="text/x-template">
+    <div class="d-flex flex-row justify-content-start">
+        <a class="btn btn-sm" href="/Category/Edit/${CategoryId}">
+            <span class="e-icons e-edit text-primary no-a-decoration"></span>
+        </a>
+        <form action="/Category/Delete/${CategoryId}">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-sm btn-link no-a-decoration"
+            onclick="return confirm(&quot;Are you sure to delete this category?&quot;)">
+                <span class="e-icons e-delete text-danger"></span>    
+            </button>
+        </form>
+    </div>
+</script>

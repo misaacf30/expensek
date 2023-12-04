@@ -1,0 +1,77 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@*Total Stats (Income and Expense) & Total Summary*@
+<div class="row my-4 mx-2">
+    <div class="stats col-md-7 p-2">
+        <ejs-chart id="totalStats" title="Total Stats" width="100%" palettes="@(new string[]{"#54ffa9","#ffe91a"})">
+            <e-chart-primaryxaxis valueType="DateTime" intervalType="Days" labelFormat="MMM d">
+                <e-majorgridlines width="0"></e-majorgridlines>
+                <e-majorticklines width="0"></e-majorticklines>
+            </e-chart-primaryxaxis>
+            <e-chart-primaryyaxis>
+                <e-majorticklines width="0"></e-majorticklines>
+                <e-linestyle width="0"></e-linestyle>
+            </e-chart-primaryyaxis>
+            <e-series-collection>
+                <e-series dataSource="@ViewBag.ChartData" width="1" xName="day" yName="income" name="Income"
+                          type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column"></e-series>
+                <e-series dataSource="@ViewBag.ChartData" width="1" xName="day" yName="expense" name="Expense"
+                          type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column"></e-series>
+            </e-series-collection>
+        </ejs-chart>
+    </div>
+
+    <div class="col-md-5">
+        <div class="widget chart p-2">
+            <ejs-accumulationchart id="doughnutchart" title="Expenses" enableSmartLabels>
+                <e-accumulation-series-collection>
+                    <e-accumulation-series dataSource="@ViewBag.DoughnutData"
+                                           xName="categoryTitleWithIcon" yName="amount"
+                                           innerRadius="60%" legendShape="Circle"
+                                           palettes=@(new string[]{"#0e8d76","#a4b219","#cb9b00","#8a442c","#0454b5","#7d0a0a","#822690","#4c2090","#313e93","#0096ac"})
+                                           type="@Syncfusion.EJ2.Charts.AccumulationType.Pie">
+                        <e-accumulationseries-datalabel name="formattedAmount" visible></e-accumulationseries-datalabel>
+                    </e-accumulation-series>
+                </e-accumulation-series-collection>
+                <e-accumulationchart-legendsettings position="Top" toggleVisibility="false">
+                    <e-legendsettings-textstyle  size="1rem"></e-legendsettings-textstyle>
+                </e-accumulationchart-legendsettings>
+                <e-accumulationchart-tooltipsettings enable></e-accumulationchart-tooltipsettings>
+            </ejs-accumulationchart>
+        </div>
+    </div>
+
+    
+</div>
+
+@*Doughnut && Recent Transactions*@
+<div class="row mx-2">
+    <div class="col-md-7">
+        <div class="widget p-4">
+                <ejs-grid id="recent-transactions" dataSource="@ViewBag.RecentTransactions" gridLines="None">
+                    <e-grid-columns>
+                        <e-grid-column headerText="Date" field="Date" width="110px" type="Date" format="MMM-dd-yy"
+                                       textAlign="Left"></e-grid-column>
+                        <e-grid-column headerText="Category" field="CategoryTitleWithIcon"></e-grid-column>
+                        <e-grid-column headerText="Note" field="Note"></e-grid-column>
+                        <e-grid-column headerText="Amount" field="FormattedAmount" width="110px" textAlign="Left"></e-grid-column>
+                    </e-grid-columns>
+                </ejs-grid>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="widget p-4">
+            <h2 class="text-center">Total Summary </h2>
+            <h5>Total Income: $@ViewBag.TotalIncome</h5>
+            <h5>Total Expense: $@ViewBag.TotalExpense</h5>
+            <h5>Weekly Expense: </h5>
+            <h5>Balance: $@ViewBag.Balance</h5>
+        </div>
+    </div>
+    
+</div>

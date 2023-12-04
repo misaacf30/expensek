@@ -1,0 +1,43 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    List<Object> menuItems = new List<Object>();
+
+    menuItems.Add(new
+    {
+        text = "Dashboard",
+        url = "/",
+        iconCss = "e-icons e-home"
+    });
+    menuItems.Add(new
+    {
+        text = "Categories",
+        url = "/Category",
+        iconCss = "e-icons e-folder"
+    });
+    menuItems.Add(new
+    {
+        text = "Transactions",
+        url = "/Transaction",
+        iconCss = "e-icons e-replace"
+    });
+    menuItems.Add(new
+    {
+        text = "Settings",
+        url = "#",
+        iconCss = "e-icons e-settings"
+    });
+}
+
+<ejs-sidebar id="sidebar" width="290px" enableDock dockSize="100px" 
+target=".dock-target" enableGestures="false">
+    <e-content-template>
+        <h1 class=" ps-4 my-2">Expensek</h1>
+        <div class="ps-2">
+            <ejs-menu id="menu" items="menuItems" orientation="Vertical" hamburgerMode></ejs-menu>
+        </div>
+        
+    </e-content-template>
+</ejs-sidebar>
+

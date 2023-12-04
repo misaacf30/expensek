@@ -1,0 +1,50 @@
+﻿@model Expensek.Models.Category
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create a new category</h1>
+
+<h4>Create a new category</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="widget p-5">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="mb-3">
+                    <div class='e-btn-group custom-rbt-group'>
+                        <input type="radio" id="radioleft" name="Type" value="Expense" />
+                        <label class="e-btn" for="radioleft">Expense</label>
+                        <input type="radio" id="radiomiddle" name="Type" value="Income" />
+                        <label class="e-btn" for="radiomiddle">Income</label>
+                    </div>  
+                </div>
+                <div class="mb-3">
+                    <ejs-textbox id="title" placeholder="Title" ejs-for="Title" floatLabelType="Always"></ejs-textbox>
+                    <span asp-validation-for="Title" class="text-danger fs-6"></span>
+                </div>
+                <div class="mb-3">
+                    <ejs-textbox id="icon" placeholder="Icon" ejs-for="Icon" floatLabelType="Always"></ejs-textbox>
+                    <span asp-validation-for="Icon" class="text-danger fs-6"></span>
+                </div>
+                <ejs-button id="submit" type="submit" content="Submit" cssClass='e-primary'></ejs-button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <ejs-grid id="categoriesCreate" dataSource="@ViewBag.Categories">
+            <e-grid-columns>
+                <e-grid-column headerText="Title" field="TitleWithIcon"></e-grid-column>
+                <e-grid-column headerText="Type" field="Type"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
